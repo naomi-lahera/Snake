@@ -17,14 +17,30 @@ public class Game
         map.PrintMap();
     }
     public void PrintMap() => this.map.PrintMap();
-    public void Play()
+    public void Play(Direction currentDirectionMove)
     {
-        if(coordinates.Count == 0) return;
-
-        Coordinates newHeadPos = coordinates[0].Y - 1 >= 0 ? new Coordinates(coordinates[0].X, coordinates[0].Y - 1) : new Coordinates(coordinates[0].X, map.Height - 1);
-        coordinates.Insert(0, newHeadPos);
+        int newHeadPosX = (coordinates[0].X + RowIncrement[currentDirectionMove] + map.Width) % map.Width;
+        int newHeadPosY = (coordinates[0].Y + ColIncrement[currentDirectionMove] + map.Height) % map.Height;
+        coordinates.Insert(0, new Coordinates(newHeadPosX, newHeadPosY));
         map.PutSnakeBody(coordinates[0]);
         map.EliminateSnakeBody(coordinates[coordinates.Count - 1]);
         coordinates.RemoveAt(coordinates.Count - 1);
     }
+
+    //The following dictionaries will representate de increment un the snake move
+public static Dictionary<Direction,int> RowIncrement = new Dictionary<Direction, int>()
+                        {
+                            {Direction.Left, 0},
+                            {Direction.Right, 0},
+                            {Direction.Up, -1},
+                            {Direction.Down, 1}
+                        };
+
+public static Dictionary<Direction, int> ColIncrement = new Dictionary<Direction, int>()
+                        {
+                            {Direction.Left, -1},
+                            {Direction.Right, 1},
+                            {Direction.Up, 0},
+                            {Direction.Down, 0}
+                        };
 }

@@ -9,7 +9,7 @@ public class Map
 
     public int Height => this.map.GetLength(0);//files number
     public int Width => this.map.GetLength(1);//columns number
-    bool ValidPos(Coordinates coor) => !(coor.X < 0 || coor.X >= this.Height || coor.Y < 0 || coor.Y >= this.Width);//Is a position valid
+    public bool ValidPos(Coordinates coor) => !(coor.X < 0 || coor.X >= this.Height || coor.Y < 0 || coor.Y >= this.Width);//Is a position valid
     public void PutSnakeBody(Coordinates pos)
     {
         if(ValidPos(pos)) 
@@ -36,5 +36,4 @@ public class Map
         System.Console.WriteLine();
     }
      
-   
 }
